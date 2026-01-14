@@ -109,14 +109,56 @@ export class ConverterService {
       await log("INITIATING BLOCKCHAIN PROVENANCE CERTIFICATION...");
       const provenanceHash = Buffer.from(`${parsed._meta.integrity_hash}_CERTIFIED_${Date.now()}`).toString('hex');
       await log(`✓ PROVENANCE HASH GENERATED: ${provenanceHash.substring(0, 32)}...`);
-      zip.file("CERTIFICATE_OF_AUTHENTICITY.json", JSON.stringify({
+      
+      // NEW: Pricing & Trend Analytics AI
+      await log("RUNNING MARKET ANALYTICS AI...");
+      const basePrice = 29.99;
+      const artistPremium = ["Da Vinci", "Rembrandt"].includes(parsed.artist_info.name) ? 15 : 5;
+      const complexityBonus = parsed.composition.base_frequencies.length > 5 ? 10 : 0;
+      const suggestedPrice = basePrice + artistPremium + complexityBonus;
+      const marketTrend = parsed.lumieres.contraste.mean > 50 ? "High Demand: Dark Cinematic" : "Stable: Natural Light";
+      await log(`✓ SUGGESTED RETAIL PRICE: $${suggestedPrice}`);
+      await log(`✓ MARKET TREND PREDICTION: ${marketTrend}`);
+
+      const certificateContent = {
         version: "1.0.0",
         provenance_hash: provenanceHash,
         artist: parsed.artist_info.name,
         dna_type: parsed.artist_info.dna_type,
         timestamp: new Date().toISOString(),
-        verification_node: "GEN_SYS_PROVENANCE_V1"
-      }, null, 2));
+        verification_node: "GEN_SYS_PROVENANCE_V1",
+        analytics: {
+          suggested_price: `$${suggestedPrice}`,
+          market_trend: marketTrend,
+          rarity_score: (artistPremium + complexityBonus) / 25
+        }
+      };
+      zip.file("CERTIFICATE_OF_AUTHENTICITY.json", JSON.stringify(certificateContent, null, 2));
+
+      // NEW: Extended Bundle Metadata
+      const bundleMetadata = {
+        pack_name: `${parsed.artist_info.name}_ADN_${parsed.artist_info.dna_type}_v2.1`.replace(/\s+/g, '_'),
+        biological_source: "Master_Painter_Genetic_Analysis",
+        artistic_signature: {
+          composition: parsed.artist_info.dna_type === "Composition" ? "golden_ratio_enhanced" : "balanced_structure",
+          color_palette: `${parsed.artist_info.name.toLowerCase()}_signature_palette`,
+          light_behavior: parsed.lumieres.contraste.mean > 50 ? "chiaroscuro_optimized" : "diffuse_ambient"
+        },
+        assets: {
+          luts: [".cube", ".3dl", ".xmp"],
+          marketing: {
+            ai_cover: "MARKETING/AI_Generated_Cover.png",
+            certification: "CERTIFICATE_OF_AUTHENTICITY.json"
+          }
+        },
+        marketplace_ready: {
+          envato: true,
+          creative_market: true,
+          adobe: true,
+          gumroad: true
+        }
+      };
+      zip.file("bundle_metadata.json", JSON.stringify(bundleMetadata, null, 2));
 
       // Step 7: AI Visual Integration
       const jobWithImage = await storage.getJob(jobId);

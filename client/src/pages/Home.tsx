@@ -185,9 +185,19 @@ export default function Home() {
                     </span>
                     <span className="text-[8px] text-[#00ff41]/40 font-mono">RES: 512x512 // COMPRESSION: NONE</span>
                   </div>
-                  <div className="relative aspect-video overflow-hidden border border-[#00ff41]/10">
+                  <div className="relative aspect-video overflow-hidden border border-[#00ff41]/10 mb-3">
                     <img src={job.imageUrl} alt="Marketing Asset" className="w-full h-full object-cover grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-700" />
                     <div className="absolute inset-0 pointer-events-none border-[1px] border-[#00ff41]/5 shadow-[inset_0_0_40px_rgba(0,0,0,0.8)]" />
+                  </div>
+                  <div className="grid grid-cols-2 gap-2">
+                    <div className="bg-[#00ff41]/5 border border-[#00ff41]/10 p-2">
+                       <p className="text-[7px] text-[#00ff41]/40 uppercase tracking-tighter">Market Prediction</p>
+                       <p className="text-[9px] text-[#00ff41] font-black truncate">HIGH_DEMAND: CINEMATIC</p>
+                    </div>
+                    <div className="bg-[#00ff41]/5 border border-[#00ff41]/10 p-2">
+                       <p className="text-[7px] text-[#00ff41]/40 uppercase tracking-tighter">Suggested MSRP</p>
+                       <p className="text-[9px] text-[#00ff41] font-black">$44.99</p>
+                    </div>
                   </div>
                 </motion.div>
               )}
