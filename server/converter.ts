@@ -1,21 +1,24 @@
 import { storage } from "./storage";
-import { parseADNFiles } from "./adn-parser";
+import { parseADNFiles, type ParsedMetrics } from "./adn-parser";
 import type { ADNFile } from "@shared/schema";
 import JSZip from "jszip";
 
 // Mock PIF generation
-function generatePIF(parsedData: any) {
+function generatePIF(parsedData: ParsedMetrics) {
   return {
-    pif_version: "2.1.0",
+    pif_version: "2.2.0",
     metadata: {
-      preset_id: "PRESET_" + Date.now(),
-      artist: "Unknown",
-      conformity_target: 94,
+      preset_id: "TACTICAL_PRESET_" + parsedData._meta.integrity_hash,
+      artist: "ADN_CONVERTER_CORE",
+      integrity_hash: parsedData._meta.integrity_hash,
+      metrics: parsedData.composition.base_frequencies
     },
-    operations: [
-      { type: "saturation", value: parsedData.couleurs.saturation_moyenne.mean },
-      { type: "contrast", value: parsedData.lumieres.contraste.mean },
-    ]
+    parameters: {
+      saturation: parsedData.couleurs.saturation_moyenne.mean,
+      contrast: parsedData.lumieres.contraste.mean,
+      grain_type: parsedData.finitions.grain.type,
+      grain_intensity: parsedData.finitions.grain.intensity
+    }
   };
 }
 
@@ -47,9 +50,10 @@ export class ConverterService {
       // Step 1: Parsing
       await storage.updateJob(jobId, { progress: 10, currentStep: "Parsing ADN Files" });
       await log("PARSING " + files.length + " ADN FILES...");
-      await new Promise(r => setTimeout(r, 1000)); // Simulate work
+      await new Promise(r => setTimeout(r, 800)); 
       const parsed = parseADNFiles(files);
-      await log("✓ PARSING COMPLETE. EXTRACTED " + parsed._meta.totalLength + " BYTES.");
+      await log(`✓ PARSING COMPLETE. HASH: ${parsed._meta.integrity_hash}`);
+      await log(`METRICS: Saturation=${parsed.couleurs.saturation_moyenne.mean}% Contrast=${parsed.lumieres.contraste.mean}%`);
 
       // Step 2: Translation Matrix
       await storage.updateJob(jobId, { progress: 30, currentStep: "Applying Translation Matrix" });
@@ -62,7 +66,7 @@ export class ConverterService {
       await log("GENERATING PRESET INTERMEDIATE FORMAT (PIF)...");
       const pif = generatePIF(parsed);
       await new Promise(r => setTimeout(r, 1000));
-      await log("✓ PIF GENERATED: " + pif.metadata.preset_id);
+      await log(`✓ PIF GENERATED: ${pif.metadata.preset_id}`);
 
       // Step 4: Conversion
       await storage.updateJob(jobId, { progress: 70, currentStep: "Compiling Output Formats" });

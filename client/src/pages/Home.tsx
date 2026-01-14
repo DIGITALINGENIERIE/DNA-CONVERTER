@@ -132,7 +132,7 @@ export default function Home() {
               LIVE_FEED
             </div>
             <SystemLog 
-              logs={job?.logs || []} 
+              logs={(job?.logs as string[]) || []} 
               status={job?.status || "idle"} 
             />
             {/* Scanline overlay for the terminal */}
