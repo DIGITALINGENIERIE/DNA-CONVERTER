@@ -1,5 +1,6 @@
 import { storage } from "./storage";
 import { parseADNFiles, type ParsedMetrics } from "./adn-parser";
+import { publicationTemplates } from "./templates/publication/templates";
 import type { ADNFile } from "@shared/schema";
 import JSZip from "jszip";
 
@@ -103,6 +104,19 @@ export class ConverterService {
 
       zip.file("README.txt", readme);
       zip.file("metadata/pif.json", JSON.stringify(pif, null, 2));
+
+      // Generate Publication Folder
+      const pubFolder = zip.folder("Publication");
+      if (pubFolder) {
+        Object.entries(publicationTemplates).forEach(([platform, template]) => {
+          const content = `PLATFORM: ${platform.toUpperCase()}\n` +
+            `TITLE: ${template.title(pif.metadata.preset_id)}\n` +
+            `PRICE: ${template.price}\n` +
+            `METADATA: ${template.metadata}\n\n` +
+            `DESCRIPTION:\n${template.description(pif.metadata.integrity_hash)}`;
+          pubFolder.file(`${platform}_listing.txt`, content);
+        });
+      }
 
       this.results.set(jobId, zip);
 
