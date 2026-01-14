@@ -1,0 +1,120 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* HSL Values for easy manipulation if needed, but we rely heavily on specific hex codes for this style */
+  --terminal-bg: 0 0% 5%;       /* #0d0d0d */
+  --terminal-text: 135 100% 50%; /* #00ff41 */
+  --terminal-dim: 120 100% 12%;  /* #003b00 */
+  --terminal-alert: 0 100% 50%;  /* #ff0000 */
+
+  --background: 0 0% 5%;
+  --foreground: 135 100% 50%;
+  
+  --primary: 135 100% 50%;
+  --primary-foreground: 0 0% 0%;
+  
+  --card: 0 0% 8%;
+  --card-foreground: 135 100% 50%;
+  
+  --popover: 0 0% 5%;
+  --popover-foreground: 135 100% 50%;
+  
+  --muted: 120 100% 12%;
+  --muted-foreground: 135 70% 40%;
+  
+  --accent: 120 100% 15%;
+  --accent-foreground: 135 100% 60%;
+  
+  --destructive: 0 100% 50%;
+  --destructive-foreground: 0 0% 100%;
+  
+  --border: 120 100% 20%;
+  --input: 120 100% 15%;
+  --ring: 135 100% 50%;
+  
+  --radius: 0px; /* Military style has no rounded corners usually */
+}
+
+@layer base {
+  body {
+    @apply bg-[#0d0d0d] text-[#00ff41] font-mono antialiased overflow-x-hidden;
+    background-image: 
+      linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+      linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 2px, 3px 100%;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    @apply bg-[#051105];
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-[#003b00] hover:bg-[#005500];
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-bold tracking-tight uppercase;
+  }
+}
+
+@layer components {
+  .terminal-border {
+    @apply border border-[#003b00] shadow-[0_0_10px_rgba(0,255,65,0.1)];
+  }
+  
+  .terminal-box {
+    @apply bg-[#0d0d0d] terminal-border relative;
+  }
+
+  .terminal-input {
+    @apply bg-black/50 border border-[#003b00] text-[#00ff41] p-3 focus:outline-none focus:border-[#00ff41] focus:ring-1 focus:ring-[#00ff41] transition-all duration-200 placeholder:text-[#003b00];
+  }
+
+  .terminal-button {
+    @apply px-6 py-3 bg-[#003b00]/30 border border-[#00ff41] text-[#00ff41] font-bold uppercase tracking-widest hover:bg-[#00ff41] hover:text-black transition-all duration-150 active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-transparent disabled:hover:text-[#00ff41];
+  }
+
+  .scanline {
+    width: 100%;
+    height: 100px;
+    z-index: 10;
+    background: linear-gradient(0deg, rgba(0,0,0,0) 0%, rgba(0, 255, 65, 0.1) 50%, rgba(0,0,0,0) 100%);
+    opacity: 0.1;
+    position: absolute;
+    bottom: 100%;
+    animation: scanline 10s linear infinite;
+    pointer-events: none;
+  }
+  
+  .flicker {
+    animation: flicker 0.15s infinite;
+  }
+}
+
+@keyframes scanline {
+  0% { bottom: 100%; }
+  100% { bottom: -100px; }
+}
+
+@keyframes flicker {
+  0% { opacity: 0.9; }
+  50% { opacity: 1.0; }
+  100% { opacity: 0.9; }
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}

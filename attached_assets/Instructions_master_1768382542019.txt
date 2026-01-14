@@ -1,0 +1,627 @@
+# 🎖️ REPLIT AI - INSTRUCTIONS MASTER
+# ADN CONVERTER V2.1 - WEB APPLICATION
+
+═══════════════════════════════════════════════════════════════════
+ATTENTION REPLIT AI: LIRE CES INSTRUCTIONS DANS L'ORDRE
+═══════════════════════════════════════════════════════════════════
+
+## 📋 CONTEXTE DU PROJET
+
+Tu vas créer une **application web** qui convertit l'ADN artistique de maîtres peintres 
+(5 fichiers texte) en presets utilisables dans des logiciels créatifs (Krita, Photoshop, 
+DaVinci Resolve, Lightroom, etc.).
+
+**Ce projet combine:**
+1. Un **Framework technique** (architecture backend/logique)
+2. Un **Prompt d'application web** (interface frontend/UX)
+
+---
+
+## 📚 DOCUMENTS FOURNIS
+
+Tu recevras **2 DOCUMENTS**:
+
+### **DOCUMENT 1: FRAMEWORK_ADN_TO_PRESET_V2.1_ULTIMATE.md**
+- 4,290 lignes de spécifications techniques
+- Architecture complète (12 sections)
+- Algorithmes de transformation
+- Translation Matrix (127 mappings)
+- Format PIF (Preset Intermediate Format)
+- GPU Acceleration
+- Convertisseurs multi-plateformes
+
+**UTILITÉ:** C'est la **LOGIQUE CORE** de l'application.
+**COMMENT L'UTILISER:** Référence pour implémenter les algorithmes de conversion.
+
+### **DOCUMENT 2: PROMPT_REPLIT_ADN_CONVERTER.md**
+- 1,045 lignes de spécifications UI/UX
+- Interface terminal militaire noir/vert
+- Structure des panneaux
+- Workflow utilisateur
+- Messages system log
+- Stack technique frontend
+
+**UTILITÉ:** C'est l'**INTERFACE UTILISATEUR** de l'application.
+**COMMENT L'UTILISER:** Guide pour créer le frontend et l'expérience utilisateur.
+
+---
+
+## 🎯 TON OBJECTIF
+
+Créer une **application web React/TypeScript** qui:
+
+1. ✅ **Interface**: Style terminal militaire (noir/vert Matrix)
+2. ✅ **Input**: Upload 5 fichiers ADN (.txt) via drag & drop
+3. ✅ **Processing**: Parse ADN → Translation Matrix → PIF → Conversions
+4. ✅ **Output**: Package ZIP avec presets multi-formats
+5. ✅ **Performance**: Web Workers + GPU.js (optionnel)
+6. ✅ **UX**: Real-time progress, system log, animations
+
+---
+
+## 📐 ARCHITECTURE À IMPLÉMENTER
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                     FRONTEND (React)                        │
+├─────────────────────────────────────────────────────────────┤
+│ • ADNConverter.tsx (main component)                         │
+│ • FileUploader.tsx (drag & drop)                            │
+│ • ProgressMetrics.tsx (barres de progression)              │
+│ • SystemLog.tsx (messages temps réel)                       │
+│ • ConversionPipeline.tsx (orchestration)                    │
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│                   CONVERSION LOGIC                          │
+├─────────────────────────────────────────────────────────────┤
+│ • adn-parser.ts (parse les 5 fichiers ADN)                 │
+│ • translation-matrix.ts (127 mappings ADN → PIF)           │
+│ • pif-generator.ts (génère format intermédiaire)           │
+│ • algorithms/ (histogram matching, gradients, textures)     │
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│                    CONVERTERS                               │
+├─────────────────────────────────────────────────────────────┤
+│ • krita-converter.ts (PIF → Krita Bundle)                  │
+│ • lut-exporter.ts (PIF → LUT 3D .cube/.png/.3dl)          │
+│ • package-generator.ts (créer ZIP final)                   │
+└─────────────────────────────────────────────────────────────┘
+                            ↓
+┌─────────────────────────────────────────────────────────────┐
+│                      OUTPUT                                 │
+├─────────────────────────────────────────────────────────────┤
+│ • [Artist]_PRESET_PACKAGE.zip (8-10 MB)                    │
+│   ├── krita/ (bundle + template)                           │
+│   ├── luts/ (.cube, .png, .3dl)                           │
+│   ├── documentation/ (guides)                              │
+│   └── metadata/ (JSON, logs)                               │
+└─────────────────────────────────────────────────────────────┘
+```
+
+---
+
+## 🔧 COMMENT UTILISER LES 2 DOCUMENTS
+
+### **PHASE 1: COMPRENDRE LE FRAMEWORK (Document 1)**
+
+**LIS ATTENTIVEMENT CES SECTIONS:**
+
+1. **Section 1: Architecture Globale**
+   - Structure du framework (10 layers)
+   - Flux de traitement complet
+   
+2. **Section 2: Translation Matrix**
+   - 127 mappings ADN → Opérations
+   - Exemples de mappings complets
+   - **IMPORTANT**: C'est le cœur de la conversion
+   
+3. **Section 3: Format PIF**
+   - Structure JSON du format intermédiaire
+   - Exemples d'opérations
+   - Contrôles utilisateur
+   
+4. **Section 4: Algorithmes de Transformation**
+   - ColorDistributionMapper
+   - GradientSynthesizer  
+   - TextureGenerator
+   - **IMPORTANT**: Ce sont les vrais algorithmes à implémenter
+
+5. **Section 11: LUT 3D Export**
+   - Comment générer LUT 3D depuis ADN
+   - Formats .cube, .png, .3dl
+   - Algorithmes de mapping couleurs
+
+**CE QU'IL FAUT IMPLÉMENTER DU FRAMEWORK:**
+
+```typescript
+// Core du Framework à implémenter
+
+// 1. Parser ADN
+interface ParsedADN {
+  composition: CompositionADN;
+  couleurs: CouleursADN;
+  lumieres: LumieresADN;
+  finitions: FinitionsADN;
+  iconographie?: IconographieADN;
+}
+
+// 2. Translation Matrix (extrait simplifié)
+const TRANSLATION_MATRIX = {
+  "composition.sujet_principal_x.mean": {
+    id: "COMP_001",
+    pif_operation: {
+      type: "composition_guide",
+      params: {
+        position: "canvas_width * (adn_value / 100)"
+      }
+    }
+  },
+  "couleurs.saturation_moyenne.mean": {
+    id: "COL_001",
+    pif_operation: {
+      type: "saturation_adjustment",
+      algorithm: "adaptive_histogram_matching",
+      params: {
+        target_mean: "adn_value"
+      }
+    }
+  }
+  // ... 125 autres mappings
+};
+
+// 3. PIF Format
+interface PIFFormat {
+  pif_version: string;
+  metadata: {
+    preset_id: string;
+    artist: string;
+    conformity_target: number;
+  };
+  operations: PIFOperation[];
+  controls: UserControl[];
+}
+
+// 4. Algorithmes clés
+class ColorDistributionMapper {
+  mapSaturationDistribution(
+    image: ImageData, 
+    targetMean: number, 
+    targetPercentiles: number[]
+  ): ImageData {
+    // Implémentation histogram matching
+  }
+}
+
+class LUT3DExporter {
+  generate3DLUT(pif: PIFFormat, size: number): Float32Array {
+    // Génère LUT 64³ = 262,144 colors
+  }
+  
+  exportCube(lut: Float32Array): string {
+    // Format .cube pour DaVinci/Lightroom
+  }
+}
+```
+
+### **PHASE 2: IMPLÉMENTER L'INTERFACE (Document 2)**
+
+**SUIS EXACTEMENT:**
+
+1. **Structure UI**: 2 panneaux (Input / Metrics)
+2. **Style CSS**: Terminal noir/vert Matrix
+3. **Components**: FileUploader, ProgressBars, SystemLog
+4. **Messages**: System log avec timestamps
+5. **Animations**: Barres de progression, glow effects
+
+**EXEMPLE DE COMPOSANT À CRÉER:**
+
+```typescript
+// ADNConverter.tsx (composant principal)
+export const ADNConverter: React.FC = () => {
+  const [adnFiles, setAdnFiles] = useState<ADNFiles>({});
+  const [isConverting, setIsConverting] = useState(false);
+  const [progress, setProgress] = useState<Progress>({});
+  const [logs, setLogs] = useState<LogEntry[]>([]);
+
+  const handleStartConversion = async () => {
+    addLog('═══════════════════════════════════════');
+    addLog('INITIATING CONVERSION PIPELINE');
+    
+    // Phase 1: Parse ADN
+    const parsed = await parseADNFiles(adnFiles);
+    updateProgress('parsing', 100);
+    
+    // Phase 2: Apply Translation Matrix
+    const translated = await applyTranslationMatrix(parsed);
+    updateProgress('translation', 100);
+    
+    // Phase 3: Generate PIF
+    const pif = await generatePIF(translated);
+    updateProgress('pif', 100);
+    
+    // Phase 4: Convert to formats
+    const formats = await convertToAllFormats(pif);
+    updateProgress('conversion', 100);
+    
+    // Phase 5: Package
+    const zip = await createPackage(formats);
+    downloadPackage(zip);
+    
+    addLog('✓ MISSION ACCOMPLISHED');
+  };
+
+  return (
+    <div className="adn-converter">
+      <Header />
+      <div className="main-panels">
+        <InputPanel 
+          onFilesUploaded={setAdnFiles}
+          onStartConversion={handleStartConversion}
+        />
+        <MetricsPanel 
+          progress={progress}
+          logs={logs}
+        />
+      </div>
+      <Footer />
+    </div>
+  );
+};
+```
+
+---
+
+## ⚡ SIMPLIFICATIONS AUTORISÉES
+
+Le Framework V2.1 est **TRÈS COMPLET** (4,290 lignes).
+Pour une **première version web**, tu peux **SIMPLIFIER**:
+
+### **SIMPLIFIE:**
+
+1. **Translation Matrix**: 
+   - Implémente 20-30 mappings les plus importants (au lieu de 127)
+   - Focus sur: saturation, température couleur, palette, composition
+   
+2. **Algorithmes**:
+   - Histogram matching: Version simplifiée sans GPU
+   - Texture generation: Utiliser Perlin noise basique
+   - Skip les algorithmes les plus complexes pour V1
+   
+3. **Formats Output**:
+   - Version 1: Krita Bundle + LUT .cube (les 2 essentiels)
+   - Version 2: Ajouter .png Hald CLUT, .3dl, etc.
+   
+4. **GPU Acceleration**:
+   - Version 1: CPU uniquement
+   - Version 2: Ajouter GPU.js si temps le permet
+
+5. **Validation**:
+   - Version 1: Validation basique fichiers
+   - Version 2: Conformity calculation complète
+
+### **NE SIMPLIFIE PAS:**
+
+1. ❌ **Interface UI**: Garde le style terminal complet
+2. ❌ **Structure PIF**: Respecte le format exact
+3. ❌ **Pipeline**: Garde les 6 phases intactes
+4. ❌ **System Log**: Messages détaillés essentiels pour UX
+
+---
+
+## 📦 STACK TECHNIQUE EXACTE
+
+```json
+{
+  "frontend": {
+    "framework": "React 18+ with TypeScript",
+    "styling": "CSS Modules (terminal style)",
+    "animations": "Framer Motion",
+    "file-upload": "react-dropzone"
+  },
+  "processing": {
+    "parsing": "Custom parser (Regex + JSON)",
+    "zip": "JSZip",
+    "download": "file-saver",
+    "workers": "Web Workers API"
+  },
+  "optional": {
+    "gpu": "GPU.js (si temps permet)",
+    "math": "Math.js"
+  }
+}
+```
+
+---
+
+## 🎯 PLAN D'IMPLÉMENTATION RECOMMANDÉ
+
+### **PHASE 1: SETUP (10 minutes)**
+```bash
+npm create vite@latest adn-converter -- --template react-ts
+cd adn-converter
+npm install jszip file-saver react-dropzone framer-motion
+```
+
+### **PHASE 2: UI SKELETON (30 minutes)**
+- Créer structure 2 panneaux
+- Implémenter style terminal CSS
+- Composants FileUploader, ProgressBars, SystemLog
+
+### **PHASE 3: ADN PARSING (45 minutes)**
+- Parser pour chaque type d'ADN
+- Extraction paramètres avec Regex
+- Validation structure
+
+### **PHASE 4: TRANSLATION CORE (1-2 heures)**
+- Implémenter 20 mappings essentiels
+- Génération PIF format
+- Résolution dépendances
+
+### **PHASE 5: CONVERSIONS (1-2 heures)**
+- Krita Bundle generator
+- LUT 3D .cube exporter
+- Package ZIP assembly
+
+### **PHASE 6: INTEGRATION (30 minutes)**
+- Connecter pipeline complet
+- Messages system log
+- Progress tracking
+
+### **PHASE 7: POLISH (30 minutes)**
+- Animations
+- Error handling
+- Documentation README
+
+**TOTAL ESTIMÉ: 4-6 heures de développement**
+
+---
+
+## 📝 EXEMPLE D'IMPLÉMENTATION MINIMALE
+
+Voici un **exemple concret** de ce que tu dois créer:
+
+### **Parser ADN (simplifié)**
+
+```typescript
+// adn-parser.ts
+export function parseCompositionADN(content: string): CompositionADN {
+  const data: CompositionADN = {
+    sujet_principal_x: extractNumber(content, /sujet_principal_x.*?mean:\s*([\d.]+)/),
+    sujet_principal_y: extractNumber(content, /sujet_principal_y.*?mean:\s*([\d.]+)/),
+    ligne_horizon: extractNumber(content, /ligne_horizon.*?mean:\s*([\d.]+)/),
+    conformite_tiers: extractNumber(content, /conformite_tiers:\s*([\d.]+)/),
+  };
+  return data;
+}
+
+export function parseColorADN(content: string): CouleursADN {
+  return {
+    saturation_moyenne: extractNumber(content, /saturation_moyenne.*?mean:\s*([\d.]+)/),
+    palette_couleurs: extractPalette(content),
+    temperature_dominante: extractString(content, /temperature_dominante:\s*(\w+)/),
+  };
+}
+
+function extractNumber(text: string, regex: RegExp): number {
+  const match = text.match(regex);
+  return match ? parseFloat(match[1]) : 0;
+}
+```
+
+### **LUT 3D Exporter (simplifié)**
+
+```typescript
+// lut-exporter.ts
+export class LUT3DExporter {
+  generateCubeLUT(pif: PIFFormat, size: number = 64): string {
+    let cubeContent = `TITLE "${pif.metadata.artist} Colors"\n`;
+    cubeContent += `LUT_3D_SIZE ${size}\n`;
+    cubeContent += `DOMAIN_MIN 0.0 0.0 0.0\n`;
+    cubeContent += `DOMAIN_MAX 1.0 1.0 1.0\n\n`;
+    
+    // Generate LUT data
+    for (let b = 0; b < size; b++) {
+      for (let g = 0; g < size; g++) {
+        for (let r = 0; r < size; r++) {
+          // Input RGB
+          let rgb = {
+            r: r / (size - 1),
+            g: g / (size - 1),
+            b: b / (size - 1)
+          };
+          
+          // Apply transformations from PIF
+          rgb = this.applySaturation(rgb, pif);
+          rgb = this.applyTemperature(rgb, pif);
+          rgb = this.applyPalette(rgb, pif);
+          
+          cubeContent += `${rgb.r.toFixed(6)} ${rgb.g.toFixed(6)} ${rgb.b.toFixed(6)}\n`;
+        }
+      }
+    }
+    
+    return cubeContent;
+  }
+  
+  private applySaturation(rgb: RGB, pif: PIFFormat): RGB {
+    const satOp = pif.operations.find(op => op.operation_type === 'saturation_adjustment');
+    if (!satOp) return rgb;
+    
+    const hsv = this.rgbToHsv(rgb);
+    const targetSat = satOp.parameters.target_mean_saturation / 100;
+    hsv.s = hsv.s * (targetSat / 0.5); // Adjust toward target
+    
+    return this.hsvToRgb(hsv);
+  }
+}
+```
+
+---
+
+## ⚠️ PIÈGES À ÉVITER
+
+### **PIÈGE 1: Vouloir tout implémenter**
+❌ N'essaie pas d'implémenter les 127 mappings d'un coup
+✅ Commence avec 20 mappings essentiels, teste, puis ajoute
+
+### **PIÈGE 2: Ignorer la structure PIF**
+❌ Ne crée pas un format propriétaire
+✅ Respecte exactement la structure PIF du framework
+
+### **PIÈGE 3: Négliger l'UX**
+❌ Ne fais pas une interface basique
+✅ Le style terminal est ESSENTIEL à l'expérience
+
+### **PIÈGE 4: Oublier la validation**
+❌ Ne suppose pas que les fichiers ADN sont corrects
+✅ Valide structure et contenu avant processing
+
+### **PIÈGE 5: Bloquer l'UI**
+❌ Ne fais pas les conversions dans le thread principal
+✅ Utilise Web Workers pour les opérations lourdes
+
+---
+
+## 🎖️ ORDRE DE LECTURE RECOMMANDÉ
+
+**POUR REPLIT AI, LIS DANS CET ORDRE:**
+
+1. ✅ **CE DOCUMENT EN ENTIER** (instructions master)
+2. ✅ **PROMPT_REPLIT_ADN_CONVERTER.md** (interface UI/UX)
+3. ✅ **FRAMEWORK V2.1 - Section 1** (Architecture globale)
+4. ✅ **FRAMEWORK V2.1 - Section 2** (Translation Matrix - exemples)
+5. ✅ **FRAMEWORK V2.1 - Section 3** (Format PIF)
+6. ✅ **FRAMEWORK V2.1 - Section 11** (LUT 3D Export)
+7. 📖 **Référence**: Autres sections du Framework si besoin
+
+**NE LIS PAS TOUT LE FRAMEWORK LIGNE PAR LIGNE**
+C'est une référence technique, pas un tutorial.
+
+---
+
+## ✅ CHECKLIST FINALE AVANT DE COMMENCER
+
+Avant de générer le code, assure-toi que tu as compris:
+
+- [ ] Structure UI: 2 panneaux, style terminal noir/vert
+- [ ] Input: 5 fichiers ADN uploadés via drag & drop
+- [ ] Pipeline: 6 phases (Parse → Translate → PIF → Convert → Validate → Package)
+- [ ] Output: ZIP avec Krita bundle + LUT 3D minimum
+- [ ] Messages: System log avec timestamps et progression
+- [ ] Format PIF: Structure JSON exacte à respecter
+- [ ] Translation: Au moins 20 mappings implémentés
+- [ ] Performance: Web Workers pour conversions lourdes
+
+---
+
+## 🚀 COMMANDE FINALE POUR REPLIT AI
+
+Une fois que tu as lu les 3 documents, utilise cette commande:
+
+```
+Crée une application web React + TypeScript complète qui:
+
+1. INTERFACE (selon PROMPT_REPLIT_ADN_CONVERTER.md):
+   - Style terminal militaire noir/vert Matrix
+   - 2 panneaux: Input Protocol + Conversion Metrics
+   - Upload 5 fichiers ADN via drag & drop
+   - Barres de progression pour 6 phases
+   - System log avec messages temps réel
+   
+2. LOGIQUE (selon FRAMEWORK V2.1):
+   - Parser 5 types d'ADN (Composition, Couleurs, Lumières, Finitions, Iconographie)
+   - Appliquer Translation Matrix (implémenter 20 mappings essentiels)
+   - Générer format PIF (structure exacte du framework)
+   - Convertir PIF → Krita Bundle (.bundle)
+   - Convertir PIF → LUT 3D (.cube)
+   - Packager en ZIP téléchargeable
+   
+3. PERFORMANCE:
+   - Web Workers pour conversions lourdes
+   - Progress tracking temps réel
+   - Messages system log détaillés
+   
+4. STRUCTURE CODE:
+   src/
+   ├── components/
+   │   ├── ADNConverter.tsx (main)
+   │   ├── FileUploader.tsx
+   │   ├── ProgressMetrics.tsx
+   │   └── SystemLog.tsx
+   ├── lib/
+   │   ├── adn-parser.ts
+   │   ├── translation-matrix.ts
+   │   ├── pif-generator.ts
+   │   ├── krita-converter.ts
+   │   └── lut-exporter.ts
+   └── styles/
+       └── terminal.module.css
+
+Commence par la structure UI, puis implémente la logique étape par étape.
+```
+
+---
+
+## 📊 RÉSULTAT ATTENDU
+
+Après génération, tu devrais avoir une app qui:
+
+```
+1. User visite l'app
+   ↓
+2. Interface terminal noir/vert s'affiche
+   ↓
+3. User drag & drop 5 fichiers ADN
+   ↓
+4. Files validés: ✓ 5/5 complete
+   ↓
+5. User clique "INITIATE CONVERSION"
+   ↓
+6. System log défile:
+   [00.00] Initializing...
+   [00.12] ✓ Artist: Johannes Vermeer
+   [00.25] ► Parsing ADN files...
+   [00.38] ✓ 5/5 validated
+   [00.52] ► Building PIF...
+   ...
+   [13.52] ✓ MISSION ACCOMPLISHED
+   ↓
+7. Download ZIP automatique (8-10 MB)
+   ↓
+8. User extrait ZIP:
+   ├── krita/ (bundle + template)
+   ├── luts/ (.cube)
+   ├── documentation/ (guides)
+   └── metadata/ (info)
+   ↓
+9. User teste preset dans Krita → ✓ Ça marche!
+```
+
+---
+
+## 💎 CONSEIL FINAL
+
+**Version 1 (MVP):**
+- Interface complète ✓
+- 20 mappings essentiels ✓
+- Krita Bundle + LUT .cube ✓
+- CPU processing ✓
+- **Objectif: Démo fonctionnelle en 4-6h**
+
+**Version 2 (Enhanced):**
+- 127 mappings complets
+- GPU acceleration
+- Tous formats (Photoshop, etc.)
+- Validation conformité 94%+
+- **Objectif: Production ready**
+
+**COMMENCE PAR V1, PUIS ITÈRE !**
+
+---
+
+═══════════════════════════════════════════════════════════════════
+FIN DES INSTRUCTIONS MASTER
+Bonne chance, soldat. Le convertisseur ADN V2.1 compte sur toi. 🎖️
+═══════════════════════════════════════════════════════════════════
