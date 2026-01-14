@@ -1,30 +1,41 @@
-# ADN Converter - Quantum Master Edition
+# ADN Converter - Quantum Master Edition (V2.1)
 
 ## Overview
-ADN Converter is a high-precision, tactical-grade software designed to transform DNA sequence data into professional color grading assets. This "Quantum" edition leverages Generative AI to bridge the gap between biological data and visual art.
+ADN Converter is a high-precision, tactical-grade software designed to transform DNA sequence data into professional color grading assets. This "Quantum" edition leverages Generative AI to bridge the gap between biological data and visual art, creating a seamless pipeline from data to marketplace.
 
-## Quantum Features
-- **AI Art Engine**: Automatically generates cinematic marketing covers for each preset pack using OpenAI models, inspired by the identified Master Painter.
-- **Master Painter Identification**: Automatic detection of artists (Vermeer, Rembrandt, Da Vinci, etc.) through DNA content analysis.
-- **5-Dimension DNA Analysis**: specialized processing for Composition, Colors, Finishes, Lights, and Subject matter.
-- **Multi-Platform Output**: Generates `.CUBE`, `.3DL`, and `.XMP` formats for DaVinci Resolve, Premiere Pro, Final Cut Pro, and Lightroom.
-- **Automated Publication Pipeline**: Optimized marketing documentation for 10+ marketplaces.
-- **Certification Proof**: Integrity hashing (SHA-256) ensures the biological provenance of every preset.
+## 🚀 Quantum Features
+- **AI Art Engine (GPT-Image-1)**: Automatically generates cinematic 512x512 marketing covers for each preset pack. The AI analyzes the master painter's style and DNA type to create high-end digital art assets.
+- **Master Painter Identification**: Automatic detection of artists (Vermeer, Rembrandt, Da Vinci, Caravaggio, Velázquez) through advanced sequence analysis.
+- **5-Dimension DNA Processing**: Specialized extraction algorithms for:
+  - **Composition**: Spatial distribution and structural balance.
+  - **Colors (Couleurs)**: Saturation, vibrance, and palette harmony.
+  - **Finishes (Finitions)**: Grain, texture, and sharpening parameters.
+  - **Lights (Lumières)**: Contrast, luminance, and dynamic range.
+  - **Subject (Sujet et Iconographie)**: Conceptual and thematic markers.
+- **Blockchain Provenance Certification**: Generates a cryptographic SHA-256 certificate (`CERTIFICATE_OF_AUTHENTICITY.json`) for every pack, ensuring the biological origin of the artistic data.
+- **Multi-Platform Ecosystem**: Instant export to industrial standards:
+  - `.CUBE` (DaVinci Resolve, Premiere, FCPX)
+  - `.3DL` (Autodesk Flame, Lustre)
+  - `.XMP` (Adobe Lightroom, Photoshop)
+  - `.KPP` (Krita Tactical Bundles)
 
-## Technical Architecture
-- **Frontend**: React 18 with Tactical UI and interactive preview components.
+## 🛠 Technical Architecture
+- **Frontend**: React 18 with Tactical UI. Features interactive telemetry, real-time process monitoring, and AI visual previews.
 - **Backend**: Express.js with a military-grade conversion engine.
-- **AI Stack**: OpenAI integration for image generation and advanced metadata synthesis.
-- **Database**: PostgreSQL with Drizzle ORM.
+- **Data Integrity**: PostgreSQL with Drizzle ORM for robust job tracking and metadata storage.
+- **AI Stack**: Replit AI Integrations (OpenAI) for image generation and metadata synthesis.
 
-## Getting Started
-1. Clone and install: `npm install`
-2. Configure environment (AI_INTEGRATIONS_OPENAI_API_KEY).
-3. Push schema: `npm run db:push --force`
-4. Launch: `npm run dev`
+## 📦 Marketplace Ready
+The converter automatically prepares 10+ platform listings with optimized descriptions:
+- **Video/Cine**: CineD, Filtergrade, Sellfy.
+- **Design/Creative**: Envato, Creative Market, Adobe Exchange.
+- **General**: Gumroad, Shopify, Etsy, Own3d.
 
-## Publication Ecosystem
-Direct export templates for Envato, Creative Market, Adobe Exchange, Gumroad, Sellfy, Shopify, Etsy, CineD, Filtergrade, and Own3d.
+## ⚡ Getting Started
+1. `npm install`
+2. `npm run db:push --force` (Ensure DB is synced)
+3. `npm run dev`
 
-## License
-Professional Commercial License - Developed for elite digital creators and colorists.
+---
+**Developed by GEN_SYS // P_ID: 176838**
+*Tactical Grade Creative Software for Elite Colorists.*
