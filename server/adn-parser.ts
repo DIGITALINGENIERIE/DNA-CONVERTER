@@ -35,24 +35,24 @@ export function parseADNFiles(files: ADNFile[]): ParsedMetrics {
   files.forEach(f => {
     const content = f.content.toUpperCase();
     
-    // Identification de l'artiste via des marqueurs dans le texte ou le nom du fichier
-    if (content.includes("VERMEER") || f.name.toUpperCase().includes("VERMEER")) artistName = "Vermeer";
-    else if (content.includes("REMBRANDT") || f.name.toUpperCase().includes("REMBRANDT")) artistName = "Rembrandt";
-    else if (content.includes("DA VINCI") || f.name.toUpperCase().includes("VINCI")) artistName = "Da Vinci";
-    else if (content.includes("CARAVAGGIO") || f.name.toUpperCase().includes("CARAVAGGIO")) artistName = "Caravaggio";
-    else if (content.includes("VELAZQUEZ") || f.name.toUpperCase().includes("VELAZQUEZ")) artistName = "Velázquez";
+    // Identification de l'artiste via des marqueurs dans le contenu du fichier
+    if (content.includes("VERMEER")) artistName = "Vermeer";
+    else if (content.includes("REMBRANDT")) artistName = "Rembrandt";
+    else if (content.includes("DA VINCI") || content.includes("VINCI")) artistName = "Da Vinci";
+    else if (content.includes("CARAVAGGIO")) artistName = "Caravaggio";
+    else if (content.includes("VELAZQUEZ")) artistName = "Velázquez";
 
-    // Identification du type d'ADN
+    // Identification du type d'ADN via des marqueurs dans le contenu du fichier
     const typeMarkers = {
-      "COMPOSITION": ["COMPOSITION", "STRUCT"],
-      "COULEURS": ["COULEUR", "COLOR", "PALETTE"],
-      "FINITIONS": ["FINITION", "TEXTURE", "GRAIN"],
-      "LUMIERES": ["LUMIERE", "LIGHT", "CONTRAST"],
-      "SUJET ET ICONOGRAPHIE": ["SUJET", "ICONO", "SUBJECT"]
+      "COMPOSITION": ["ADN COMPOSITION", "ADN_COMPOSITION", "DNA COMPOSITION"],
+      "COULEURS": ["ADN COULEURS", "ADN_COULEURS", "DNA COLORS", "ADN COULEUR"],
+      "FINITIONS": ["ADN FINITIONS", "ADN_FINITIONS", "DNA FINISHES", "ADN FINITION"],
+      "LUMIERES": ["ADN LUMIERES", "ADN_LUMIERES", "DNA LIGHTS", "ADN LUMIERE"],
+      "SUJET ET ICONOGRAPHIE": ["ADN SUJET ET ICONOGRAPHIE", "ADN_SUJET", "DNA SUBJECT"]
     };
 
     for (const [type, markers] of Object.entries(typeMarkers)) {
-      if (markers.some(m => content.includes(m) || f.name.toUpperCase().includes(m))) {
+      if (markers.some(m => content.includes(m))) {
         dnaType = type;
         break;
       }
