@@ -29,24 +29,35 @@ export function useCreateJob() {
   const { toast } = useToast();
   return useMutation({
     mutationFn: async (files: File[]) => {
-      // In a real app, we'd use FormData. 
-      // For this specific MVP based on schema, we might be sending text content directly 
-      // OR the backend handles multipart. Assuming multipart for robust file handling.
-      const formData = new FormData();
-      files.forEach((file) => {
-        formData.append('files', file);
-      });
+      // Read all files as text as the backend expects JSON with text content
+      const fileData = await Promise.all(
+        files.map(async (file) => {
+          return new Promise<{ name: string; content: string }>((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+              resolve({
+                name: file.name,
+                content: reader.result as string,
+              });
+            };
+            reader.onerror = reject;
+            reader.readAsText(file);
+          });
+        })
+      );
 
       const res = await fetch(api.jobs.create.path, {
         method: api.jobs.create.method,
-        body: formData, 
-        // Note: fetch automatically sets Content-Type to multipart/form-data with boundary when body is FormData
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ files: fileData }),
       });
 
       if (!res.ok) {
         if (res.status === 400) {
-          const error = api.jobs.create.responses[400].parse(await res.json());
-          throw new Error(error.message);
+          const error = await res.json();
+          throw new Error(error.message || 'Validation failed');
         }
         throw new Error('Failed to initialize sequence');
       }
