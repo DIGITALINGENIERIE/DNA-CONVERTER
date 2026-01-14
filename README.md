@@ -1,57 +1,30 @@
-# ADN Converter - Professional DNA to LUT Pipeline
+# ADN Converter - Quantum Master Edition
 
 ## Overview
-ADN Converter is a high-precision, tactical-grade software designed to transform DNA sequence data into professional color grading assets. Specifically engineered for artists and production houses, the system analyzes the biological metrics of "Master Painters" (Vermeer, Rembrandt, etc.) to generate industry-standard LUTs and presets.
+ADN Converter is a high-precision, tactical-grade software designed to transform DNA sequence data into professional color grading assets. This "Quantum" edition leverages Generative AI to bridge the gap between biological data and visual art.
 
-## Key Features
+## Quantum Features
+- **AI Art Engine**: Automatically generates cinematic marketing covers for each preset pack using OpenAI models, inspired by the identified Master Painter.
 - **Master Painter Identification**: Automatic detection of artists (Vermeer, Rembrandt, Da Vinci, etc.) through DNA content analysis.
-- **5-Dimension DNA Analysis**: Specialized processing for:
-  - **Composition**: Structural mapping of the sequence.
-  - **Couleurs (Colors)**: Advanced color matrix translation.
-  - **Finitions (Finishes)**: Texture and grain synthesis.
-  - **Lumières (Lights)**: Contrast and dynamic range optimization.
-  - **Sujet et Iconographie**: Symbolic and subject-matter data mapping.
-- **Multi-Platform Output**: Generates `.CUBE`, `.3DL`, and `.XMP` formats compatible with:
-  - DaVinci Resolve
-  - Adobe Premiere Pro
-  - Final Cut Pro
-  - Adobe Lightroom & Photoshop
-- **Automated Publication Pipeline**: Generates ready-to-use marketing descriptions and metadata for 10+ marketplaces (Envato, Creative Market, Etsy, etc.).
+- **5-Dimension DNA Analysis**: specialized processing for Composition, Colors, Finishes, Lights, and Subject matter.
+- **Multi-Platform Output**: Generates `.CUBE`, `.3DL`, and `.XMP` formats for DaVinci Resolve, Premiere Pro, Final Cut Pro, and Lightroom.
+- **Automated Publication Pipeline**: Optimized marketing documentation for 10+ marketplaces.
+- **Certification Proof**: Integrity hashing (SHA-256) ensures the biological provenance of every preset.
 
 ## Technical Architecture
-- **Frontend**: React 18 with TypeScript, Vite, and TailwindCSS (Tactical UI).
+- **Frontend**: React 18 with Tactical UI and interactive preview components.
 - **Backend**: Express.js with a military-grade conversion engine.
-- **DNA Parser**: Real-time analysis of base frequencies (A, C, T, G, N), entropy, and GC-content.
-- **Integrity System**: SHA-256 based integrity hashing to ensure preset uniqueness.
+- **AI Stack**: OpenAI integration for image generation and advanced metadata synthesis.
+- **Database**: PostgreSQL with Drizzle ORM.
 
 ## Getting Started
-### Prerequisites
-- Node.js (Latest LTS)
-- PostgreSQL Database
-
-### Installation
-1. Clone the repository
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Configure your database URL in the environment variables.
-4. Push the database schema:
-   ```bash
-   npm run db:push
-   ```
-
-### Running the Application
-```bash
-npm run dev
-```
-The application will be available at `http://0.0.0.0:5000`.
+1. Clone and install: `npm install`
+2. Configure environment (AI_INTEGRATIONS_OPENAI_API_KEY).
+3. Push schema: `npm run db:push --force`
+4. Launch: `npm run dev`
 
 ## Publication Ecosystem
-The system generates optimized listing documentation for:
-- **Professional Markets**: Envato, Creative Market, Adobe Exchange.
-- **Direct-to-Consumer**: Gumroad, Sellfy, Shopify, Etsy.
-- **Specialized Communities**: CineD, Filtergrade, Own3d (Streaming).
+Direct export templates for Envato, Creative Market, Adobe Exchange, Gumroad, Sellfy, Shopify, Etsy, CineD, Filtergrade, and Own3d.
 
 ## License
 Professional Commercial License - Developed for elite digital creators and colorists.

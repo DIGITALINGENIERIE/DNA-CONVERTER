@@ -9,9 +9,12 @@ export const jobs = pgTable("jobs", {
   currentStep: text("current_step").notNull().default("Initializing"),
   logs: text("logs").notNull().default("[]"),
   resultUrl: text("result_url"),
+  imageUrl: text("image_url"),
   error: text("error"),
   createdAt: timestamp("created_at").defaultNow(),
 });
+
+export * from "./models/chat";
 
 // === SCHEMA FOR PARSED ADN ===
 export const adnFileSchema = z.object({

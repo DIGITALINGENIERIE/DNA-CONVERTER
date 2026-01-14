@@ -6,10 +6,17 @@ import { converterService } from "./converter";
 import { z } from "zod";
 import { adnFileSchema } from "@shared/schema";
 
+import { registerChatRoutes } from "./replit_integrations/chat";
+import { registerImageRoutes } from "./replit_integrations/image";
+import { registerAudioRoutes } from "./replit_integrations/audio";
+
 export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
+  registerChatRoutes(app);
+  registerImageRoutes(app);
+  registerAudioRoutes(app);
   
   // POST /api/jobs
   app.post(api.jobs.create.path, async (req, res) => {

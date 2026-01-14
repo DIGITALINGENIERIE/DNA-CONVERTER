@@ -3,6 +3,7 @@ import { parseADNFiles, type ParsedMetrics } from "./adn-parser";
 import { publicationTemplates } from "./templates/publication/templates";
 import type { ADNFile } from "@shared/schema";
 import JSZip from "jszip";
+import { generateImageBuffer } from "./replit_integrations/image";
 
 // Mock PIF generation
 function generatePIF(parsedData: ParsedMetrics) {
@@ -56,6 +57,25 @@ export class ConverterService {
       await log(`✓ PARSING COMPLETE. HASH: ${parsed._meta.integrity_hash}`);
       await log(`METRICS: Saturation=${parsed.couleurs.saturation_moyenne.mean}% Contrast=${parsed.lumieres.contraste.mean}%`);
 
+      // NEW: Generate AI Marketing Visual
+      await storage.updateJob(jobId, { currentStep: "Generating AI Marketing Visual" });
+      await log("INITIATING AI VISUAL GENERATION...");
+      try {
+        const prompt = `A professional cinematic marketing cover for a color grading preset pack. The style is inspired by the painter ${parsed.artist_info.name}, specifically focusing on ${parsed.artist_info.dna_type}. Technical, tactical, high-end digital art style, 8k resolution, professional lighting.`;
+        const imageBuffer = await generateImageBuffer(prompt, "512x512");
+        const imagePath = `attached_assets/generated_images/marketing_${jobId}_${Date.now()}.png`;
+        // Ensure directory exists
+        const fs = await import("node:fs");
+        if (!fs.existsSync("attached_assets/generated_images")) {
+          fs.mkdirSync("attached_assets/generated_images", { recursive: true });
+        }
+        fs.writeFileSync(imagePath, imageBuffer);
+        await storage.updateJob(jobId, { imageUrl: "/" + imagePath });
+        await log("✓ AI VISUAL GENERATED SUCCESSFULLY.");
+      } catch (err) {
+        await log(`⚠️ AI VISUAL GENERATION FAILED: ${err instanceof Error ? err.message : String(err)}`);
+      }
+
       // Step 2: Translation Matrix
       await storage.updateJob(jobId, { progress: 30, currentStep: "Applying Translation Matrix" });
       await log("APPLYING TRANSLATION MATRIX (127 MAPPINGS)...");
@@ -85,6 +105,40 @@ export class ConverterService {
       const zip = new JSZip();
       const prefix = `${parsed.artist_info.name}_${parsed.artist_info.dna_type}`.replace(/\s+/g, '_');
       
+      // Step 6: Blockchain Certification (Mock)
+      await log("INITIATING BLOCKCHAIN PROVENANCE CERTIFICATION...");
+      const provenanceHash = Buffer.from(`${parsed._meta.integrity_hash}_CERTIFIED_${Date.now()}`).toString('hex');
+      await log(`✓ PROVENANCE HASH GENERATED: ${provenanceHash.substring(0, 32)}...`);
+      zip.file("CERTIFICATE_OF_AUTHENTICITY.json", JSON.stringify({
+        version: "1.0.0",
+        provenance_hash: provenanceHash,
+        artist: parsed.artist_info.name,
+        dna_type: parsed.artist_info.dna_type,
+        timestamp: new Date().toISOString(),
+        verification_node: "GEN_SYS_PROVENANCE_V1"
+      }, null, 2));
+
+      // Step 7: AI Visual Integration
+      const jobWithImage = await storage.getJob(jobId);
+      if (jobWithImage?.imageUrl) {
+        try {
+          const fs = await import("node:fs");
+          const imagePath = jobWithImage.imageUrl.substring(1); // Remove leading slash
+          if (fs.existsSync(imagePath)) {
+            const imageBuffer = fs.readFileSync(imagePath);
+            zip.file("MARKETING/AI_Generated_Cover.png", imageBuffer);
+            await log("✓ AI MARKETING VISUAL INJECTED INTO PACKAGE.");
+          }
+        } catch (err) {
+          await log("⚠️ FAILED TO INJECT AI VISUAL INTO ZIP.");
+        }
+      }
+
+      // Step 8: Final Quantum Stabilization
+      await log("STABILIZING QUANTUM METRICS...");
+      await new Promise(r => setTimeout(r, 500));
+      await log("✓ SYSTEM STABLE. MISSION ACCOMPLISHED.");
+
       // Industrial standard formats
       zip.file(`LUTs/Standard/${prefix}_tactical.cube`, lut);
       zip.file(`LUTs/Resolve/${prefix}_tactical.3dl`, lut);

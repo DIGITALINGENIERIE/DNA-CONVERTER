@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Download, PlayCircle, ShieldAlert, Cpu, Activity } from 'lucide-react';
+import { Download, PlayCircle, ShieldAlert, Cpu, Activity, Zap } from 'lucide-react';
 import { FileUploader } from '@/components/FileUploader';
 import { SystemLog } from '@/components/SystemLog';
 import { ProgressMetrics } from '@/components/ProgressMetrics';
@@ -158,18 +158,40 @@ export default function Home() {
              />
           </div>
 
-          {/* Terminal Log */}
-          <div className="flex-1 min-h-0 relative">
-            <div className="absolute -top-3 right-4 bg-[#051105] text-[#00ff41] text-[9px] px-3 py-1 border border-[#00ff41]/30 z-30 font-black tracking-[0.2em] uppercase">
-              Live_Telemetry
+            <div className="flex-1 min-h-0 relative flex flex-col gap-4">
+              <div className="flex-1 relative">
+                <div className="absolute -top-3 right-4 bg-[#051105] text-[#00ff41] text-[9px] px-3 py-1 border border-[#00ff41]/30 z-30 font-black tracking-[0.2em] uppercase">
+                  Live_Telemetry
+                </div>
+                <SystemLog 
+                  logs={(job?.logs as unknown as string[]) || []} 
+                  status={job?.status || "idle"} 
+                />
+                {/* Scanline overlay for the terminal */}
+                <div className="scanline pointer-events-none absolute inset-0 opacity-10" />
+              </div>
+
+              {/* AI Marketing Visual Preview */}
+              {job?.imageUrl && (
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="shrink-0 border border-[#00ff41]/30 bg-black/40 p-2 rounded-sm backdrop-blur-md"
+                >
+                  <div className="flex justify-between items-center mb-2 px-1">
+                    <span className="text-[9px] text-[#00ff41] font-black tracking-widest uppercase flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 bg-[#00ff41] rounded-full animate-pulse" />
+                      AI_Generated_Visual_Asset
+                    </span>
+                    <span className="text-[8px] text-[#00ff41]/40 font-mono">RES: 512x512 // COMPRESSION: NONE</span>
+                  </div>
+                  <div className="relative aspect-video overflow-hidden border border-[#00ff41]/10">
+                    <img src={job.imageUrl} alt="Marketing Asset" className="w-full h-full object-cover grayscale opacity-50 hover:grayscale-0 hover:opacity-100 transition-all duration-700" />
+                    <div className="absolute inset-0 pointer-events-none border-[1px] border-[#00ff41]/5 shadow-[inset_0_0_40px_rgba(0,0,0,0.8)]" />
+                  </div>
+                </motion.div>
+              )}
             </div>
-            <SystemLog 
-              logs={(job?.logs as unknown as string[]) || []} 
-              status={job?.status || "idle"} 
-            />
-            {/* Scanline overlay for the terminal */}
-            <div className="scanline pointer-events-none absolute inset-0 opacity-10" />
-          </div>
         </div>
       </main>
 
