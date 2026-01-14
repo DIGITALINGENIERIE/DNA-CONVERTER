@@ -15,6 +15,11 @@ export interface ParsedMetrics {
   finitions: {
     grain: { type: string; intensity: number };
   };
+  artist_info: {
+    name: string;
+    dna_type: string;
+    type_label: string;
+  };
   _meta: {
     fileCount: number;
     totalLength: number;
@@ -24,11 +29,46 @@ export interface ParsedMetrics {
 
 export function parseADNFiles(files: ADNFile[]): ParsedMetrics {
   let totalContent = "";
+  let artistName = "Unknown Master";
+  let dnaType = "COMPOSITION";
+
   files.forEach(f => {
-    // Nettoyage militaire : on ne garde que les bases et on passe en majuscules
-    const cleanContent = f.content.toUpperCase().replace(/[^ACTGN]/g, "");
+    const content = f.content.toUpperCase();
+    
+    // Identification de l'artiste via des marqueurs dans le texte ou le nom du fichier
+    if (content.includes("VERMEER") || f.name.toUpperCase().includes("VERMEER")) artistName = "Vermeer";
+    else if (content.includes("REMBRANDT") || f.name.toUpperCase().includes("REMBRANDT")) artistName = "Rembrandt";
+    else if (content.includes("DA VINCI") || f.name.toUpperCase().includes("VINCI")) artistName = "Da Vinci";
+    else if (content.includes("CARAVAGGIO") || f.name.toUpperCase().includes("CARAVAGGIO")) artistName = "Caravaggio";
+    else if (content.includes("VELAZQUEZ") || f.name.toUpperCase().includes("VELAZQUEZ")) artistName = "Velázquez";
+
+    // Identification du type d'ADN
+    const typeMarkers = {
+      "COMPOSITION": ["COMPOSITION", "STRUCT"],
+      "COULEURS": ["COULEUR", "COLOR", "PALETTE"],
+      "FINITIONS": ["FINITION", "TEXTURE", "GRAIN"],
+      "LUMIERES": ["LUMIERE", "LIGHT", "CONTRAST"],
+      "SUJET ET ICONOGRAPHIE": ["SUJET", "ICONO", "SUBJECT"]
+    };
+
+    for (const [type, markers] of Object.entries(typeMarkers)) {
+      if (markers.some(m => content.includes(m) || f.name.toUpperCase().includes(m))) {
+        dnaType = type;
+        break;
+      }
+    }
+
+    const cleanContent = content.replace(/[^ACTGN]/g, "");
     totalContent += cleanContent;
   });
+
+  const typeLabels: Record<string, string> = {
+    "COMPOSITION": "Composition Preset",
+    "COULEURS": "Couleurs Preset",
+    "FINITIONS": "Finitions Preset",
+    "LUMIERES": "Lumières Preset",
+    "SUJET ET ICONOGRAPHIE": "Sujet & Iconographie Preset"
+  };
 
   const length = totalContent.length || 1;
   const counts: Record<string, number> = { A: 0, C: 0, T: 0, G: 0, N: 0 };
@@ -45,14 +85,10 @@ export function parseADNFiles(files: ADNFile[]): ParsedMetrics {
     N: counts.N / length,
   };
 
-  // Calcul d'une entropie simplifiée pour le contraste
   const entropy = Object.values(frequencies).reduce((acc, f) => {
     return f > 0 ? acc - f * Math.log2(f) : acc;
   }, 0);
 
-  // Mapping tactique : 
-  // - GC content -> Saturation (plus de GC = plus vibrant)
-  // - Entropie -> Contraste (plus de désordre = plus de contraste)
   const gcContent = frequencies.G + frequencies.C;
   
   return {
@@ -65,10 +101,15 @@ export function parseADNFiles(files: ADNFile[]): ParsedMetrics {
       palette: gcContent > 0.5 ? ["#ff0041", "#00ff41", "#0041ff"] : ["#003b00", "#00ff41", "#008f11"],
     },
     lumieres: {
-      contraste: { mean: Math.round((entropy / 2.32) * 100) }, // 2.32 est l'entropie max pour 5 bases
+      contraste: { mean: Math.round((entropy / 2.32) * 100) },
     },
     finitions: {
       grain: { type: entropy > 1.5 ? "coarse" : "fine", intensity: Math.round(entropy * 10) },
+    },
+    artist_info: {
+      name: artistName,
+      dna_type: dnaType,
+      type_label: typeLabels[dnaType] || "General DNA Preset"
     },
     _meta: {
       fileCount: files.length,

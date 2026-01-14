@@ -1,11 +1,13 @@
 export const publicationTemplates = {
   envato: {
-    title: (id: string) => `[CINEMATIC] Tactical DNA Color Grade Pack - ${id} for DaVinci & Premiere`,
-    description: (hash: string) => `✨ Achieve professional cinematic film grade in just a few clicks!\n\n` +
-      `[DNA-DRIVEN PRECISION]\n` +
-      `This exclusive pack is generated from unique DNA sequence metrics, ensuring a one-of-a-kind color profile that is impossible to ignore. Designed to preserve skin tones while delivering Hollywood-style results.\n\n` +
+    title: (artist: string, type: string) => `[CINEMATIC] ${artist} - ${type} DNA Color Grade Pack for DaVinci & Premiere`,
+    description: (hash: string, artist: string, type: string) => `✨ Achieve professional cinematic film grade in just a few clicks!\n\n` +
+      `[THE ART OF THE MASTERS]\n` +
+      `This exclusive pack is generated from the unique ${type} DNA metrics of ${artist}. Our proprietary technology translates the aesthetic characteristics of history's greatest painters into high-precision color science.\n\n` +
+      `🎨 ARTIST FOCUS: ${artist}\n` +
+      `🧬 DNA TYPE: ${type}\n\n` +
       `🎬 BÉNÉFICES :\n` +
-      `• Hollywood-style cinematic look for your projects\n` +
+      `• ${artist}-inspired cinematic look for your projects\n` +
       `• 1-Click color grading - save hours of work\n` +
       `• Non-destructive workflow - keeps original footage pristine\n` +
       `• Validated Integrity Hash: ${hash}\n\n` +
@@ -15,17 +17,17 @@ export const publicationTemplates = {
       `• Commercial License included for client work\n` +
       `• Installation Guide (PDF) included`,
     price: "29€",
-    metadata: "cinematic, film look, professional, color grading, hollywood-style, davinci resolve, premiere pro, luts"
+    metadata: (artist: string, type: string) => `${artist.toLowerCase()}, ${type.toLowerCase()}, cinematic, film look, professional, color grading, hollywood-style, davinci resolve, luts`
   },
   creative_market: {
-    title: (id: string) => `Tactical DNA Presets - Professional Color Matrix ${id}`,
-    description: (hash: string) => `✨ Elevate your photography with DNA-based color science.\n\n` +
-      `[THE SCIENCE OF COLOR]\n` +
-      `Unlike standard presets, this tactical pack uses an advanced color matrix derived from DNA sequences. Perfect for urban, fashion, and moody scenarios where visual impact is critical.\n\n` +
+    title: (artist: string, type: string) => `${artist} DNA Presets - ${type} Professional Color Matrix`,
+    description: (hash: string, artist: string, type: string) => `✨ Elevate your photography with DNA-based color science inspired by ${artist}.\n\n` +
+      `[THE SCIENCE OF ART]\n` +
+      `Unlike standard presets, this tactical pack uses an advanced color matrix derived from ${artist}'s ${type} DNA sequences. Perfect for high-end photography requiring the touch of a master.\n\n` +
       `🔥 KEY FEATURES :\n` +
+      `• Derived from ${artist}'s signature ${type} style\n` +
       `• Bold, creative color grading for maximum energy\n` +
       `• Preserves texture and detail in high-resolution shots\n` +
-      `• 100% Consistency across all shots\n` +
       `• Integrity Verified: ${hash}\n\n` +
       `📦 INCLUDED ASSETS :\n` +
       `• Adobe Lightroom Presets (.XMP)\n` +
@@ -33,30 +35,30 @@ export const publicationTemplates = {
       `• Full Commercial Use Rights\n` +
       `• Quick Start Documentation`,
     price: "35€",
-    metadata: "photography, presets, lightroom, editing, dna, high-end, urban, fashion, moody"
+    metadata: (artist: string, type: string) => `${artist.toLowerCase()}, ${type.toLowerCase()}, photography, presets, lightroom, editing, dna, high-end, master-painter`
   },
   adobe: {
-    title: (id: string) => `Tactical DNA Look - Premium CC Edition`,
-    description: (hash: string) => `✨ Professional results directly in Adobe Creative Cloud.\n\n` +
-      `Crafted for industry professionals, this DNA-driven look transforms generic video into dazzling cinematic visuals. Optimized for Premiere Pro and Photoshop with high-resolution matrix mapping.\n\n` +
+    title: (artist: string, type: string) => `${artist} DNA Look - ${type} Premium CC Edition`,
+    description: (hash: string, artist: string, type: string) => `✨ Professional results directly in Adobe Creative Cloud, inspired by ${artist}.\n\n` +
+      `This DNA-driven look translates ${artist}'s ${type} into dazzling cinematic visuals. Optimized for Premiere Pro and Photoshop with high-resolution matrix mapping.\n\n` +
       `✅ HIGHLIGHTS :\n` +
       `• Native integration for Adobe CC 2026+\n` +
+      `• Based on ${artist} aesthetic metrics\n` +
       `• Optimized for skin tone preservation\n` +
-      `• Non-destructive 3D LUT application\n` +
       `• Secure Hash: ${hash}\n\n` +
       `📦 PACKAGE CONTENTS :\n` +
       `• Premium .CUBE and .LOOK files\n` +
       `• Photoshop Camera Raw presets\n` +
       `• Technical support included`,
     price: "39€",
-    metadata: "adobe, premiere, photoshop, lut, dna, cinematic, pro, creative cloud"
+    metadata: (artist: string, type: string) => `adobe, ${artist.toLowerCase()}, ${type.toLowerCase()}, premiere, photoshop, lut, dna, cinematic`
   },
   etsy: {
-    title: (id: string) => `Unique DNA Preset Pack - Cinematic Digital Download`,
-    description: (hash: string) => `✨ Handcrafted digital assets for independent creators.\n\n` +
-      `Give your content a magical, cinematic feel with presets generated from biological data sequences. Ideal for travel vloggers and Instagram creators looking for a unique signature style.\n\n` +
+    title: (artist: string, type: string) => `${artist} DNA Preset - ${type} Cinematic Digital Download`,
+    description: (hash: string, artist: string, type: string) => `✨ Handcrafted digital assets inspired by ${artist}.\n\n` +
+      `Give your content a magical, cinematic feel with presets generated from ${artist}'s ${type} DNA. Ideal for creators looking for a historical artistic signature.\n\n` +
       `🌟 WHY CHOOSE THIS PACK :\n` +
-      `• Unique visual signature - stand out from the crowd\n` +
+      `• ${artist}'s unique visual signature\n` +
       `• Instant digital download - start editing now\n` +
       `• Easy to use - 1-click application\n` +
       `• Unique ID: ${hash}\n\n` +
@@ -65,27 +67,27 @@ export const publicationTemplates = {
       `• Video LUTs for mobile editing apps\n` +
       `• Step-by-step PDF instructions`,
     price: "19€",
-    metadata: "etsy, digital, preset, lut, creator, instagram, vlogger, travel, cinematic"
+    metadata: (artist: string, type: string) => `etsy, ${artist.toLowerCase()}, ${type.toLowerCase()}, digital, preset, lut, creator, instagram, vlogger`
   },
   gumroad: {
-    title: (id: string) => `Tactical DNA Sequence - Full Professional Pipeline`,
-    description: (hash: string) => `✨ Complete control over your color grading pipeline.\n\n` +
-      `Spend less time editing and more time telling stories. This DNA-based tactical pack is built for speed and visual impact, delivering professional results in just a few clicks.\n\n` +
+    title: (artist: string, type: string) => `${artist} DNA Sequence - ${type} Full Professional Pipeline`,
+    description: (hash: string, artist: string, type: string) => `✨ Complete control over your color grading pipeline with ${artist}'s ${type} style.\n\n` +
+      `Spend less time editing and more time telling stories like ${artist}. This DNA-based tactical pack is built for speed and visual impact.\n\n` +
       `⚙️ TECHNICAL SPECS :\n` +
+      `• ${artist} aesthetic mapping v2.4\n` +
       `• 64-bit High-Precision Matrix\n` +
-      `• Compatible with all major LOG profiles\n` +
       `• Lifetime free updates included\n` +
       `• Secure Hash: ${hash}\n\n` +
       `📦 DOWNLOAD INCLUDES :\n` +
       `• Multi-format LUTs (.CUBE, .3DL, .XMP)\n` +
       `• Full documentation & workflow guide`,
     price: "25€+",
-    metadata: "gumroad, creator, color, dna, filmmaking, technical, log, s-log, v-log"
+    metadata: (artist: string, type: string) => `gumroad, ${artist.toLowerCase()}, ${type.toLowerCase()}, creator, color, dna, filmmaking`
   },
   sellfy: {
-    title: (id: string) => `DNA Tactical Look - Pro Colorist Series`,
-    description: (hash: string) => `✨ Professional series presets for serious editors.\n\n` +
-      `Make your content impossible to ignore with bold, creative color grading. This pack is designed specifically for urban environments and fashion production.\n\n` +
+    title: (artist: string, type: string) => `${artist} DNA Tactical Look - ${type} Pro Colorist Series`,
+    description: (hash: string, artist: string, type: string) => `✨ Professional series presets for serious editors, based on ${artist}.\n\n` +
+      `Make your content impossible to ignore with bold, creative color grading derived from ${artist}'s ${type}.\n\n` +
       `🎯 TARGET USE CASES :\n` +
       `• Fashion & Editorial photography\n` +
       `• Urban & Gritty city vibes\n` +
@@ -96,12 +98,12 @@ export const publicationTemplates = {
       `• Krita & Photoshop bundles\n` +
       `• Priority technical support`,
     price: "29€",
-    metadata: "sellfy, pro, preset, lut, fashion, urban, corporate, colorist"
+    metadata: (artist: string, type: string) => `sellfy, ${artist.toLowerCase()}, ${type.toLowerCase()}, pro, preset, lut, fashion`
   },
   cined: {
-    title: (id: string) => `Cinema Grade DNA - Professional Tactical Edition`,
-    description: (hash: string) => `✨ Advanced cinema-grade LUTs based on DNA metrics.\n\n` +
-      `Tell stories with colors. This pack helps you convey deep emotions through subtle desaturation and warm, intimate palettes derived from sequence complexity.\n\n` +
+    title: (artist: string, type: string) => `${artist} Cinema Grade DNA - ${type} Tactical Edition`,
+    description: (hash: string, artist: string, type: string) => `✨ Advanced cinema-grade LUTs based on ${artist}'s ${type} DNA metrics.\n\n` +
+      `Tell stories with the colors of ${artist}. This pack helps you convey deep emotions through subtle desaturation and warm palettes.\n\n` +
       `🎥 CINEMA SPECS :\n` +
       `• Optimized for ARRI, RED, and Sony cameras\n` +
       `• Preserves maximum dynamic range\n` +
@@ -111,28 +113,28 @@ export const publicationTemplates = {
       `• Precision .CUBE LUTs (32x32 & 64x64)\n` +
       `• Technical white paper on DNA mapping`,
     price: "49€",
-    metadata: "cinema, pro, lut, dna, arri, red, colorist, filmmaking"
+    metadata: (artist: string, type: string) => `cinema, ${artist.toLowerCase()}, ${type.toLowerCase()}, pro, lut, dna, filmmaking`
   },
   filtergrade: {
-    title: (id: string) => `DNA Tactical Presets - Ultimate Creative Collection`,
-    description: (hash: string) => `✨ The ultimate collection of DNA-driven looks.\n\n` +
-      `Inspired by natural environments and biological structures, these presets enhance outdoor photos and travel footage with beautiful, natural colors.\n\n` +
+    title: (artist: string, type: string) => `${artist} DNA Tactical Presets - ${type} Ultimate Creative Collection`,
+    description: (hash: string, artist: string, type: string) => `✨ The ultimate collection of ${artist}-driven looks.\n\n` +
+      `Inspired by the ${type} of ${artist}, these presets enhance outdoor photos and travel footage with beautiful, natural colors.\n\n` +
       `🌿 IDEAL FOR :\n` +
       `• Landscape & Nature photography\n` +
       `• Outdoor adventure vlogs\n` +
       `• Travel & Lifestyle content\n` +
       `• Hash: ${hash}\n\n` +
       `📦 ULTIMATE BUNDLE :\n` +
-      `• 150+ Total Variations (based on metrics)\n` +
+      `• Master-painter aesthetic mapping\n` +
       `• Multi-software compatibility list\n` +
       `• FilterGrade verified license`,
     price: "39€",
-    metadata: "filtergrade, ultimate, preset, dna, nature, travel, landscape, collection"
+    metadata: (artist: string, type: string) => `filtergrade, ${artist.toLowerCase()}, ${type.toLowerCase()}, preset, dna, nature`
   },
   own3d: {
-    title: (id: string) => `Streamer DNA Look - Pro Tactical Overlay Grade`,
-    description: (hash: string) => `✨ Boost your stream visual quality with DNA-based presets.\n\n` +
-      `Make your live content stand out with vibrant, high-impact colors. Specifically designed for gaming setups and low-light streaming environments.\n\n` +
+    title: (artist: string, type: string) => `Streamer ${artist} DNA Look - ${type} Pro Tactical Grade`,
+    description: (hash: string, artist: string, type: string) => `✨ Boost your stream visual quality with ${artist}-based presets.\n\n` +
+      `Make your live content stand out with vibrant, high-impact colors inspired by ${artist}'s ${type}.\n\n` +
       `🎮 STREAMER PERKS :\n` +
       `• Optimized for OBS, Streamlabs, and Twitch Studio\n` +
       `• Enhances face-cam lighting & clarity\n` +
@@ -142,22 +144,22 @@ export const publicationTemplates = {
       `• Live-optimized .CUBE filters\n` +
       `• Setup guide for OBS/Streamlabs`,
     price: "24€",
-    metadata: "stream, gaming, overlay, dna, obs, twitch, streamer, pro"
+    metadata: (artist: string, type: string) => `stream, ${artist.toLowerCase()}, ${type.toLowerCase()}, gaming, dna, obs`
   },
   shopify: {
-    title: (id: string) => `DNA Tactical Collection - Exclusive Professional Bundle`,
-    description: (hash: string) => `✨ Exclusive DNA-driven presets for your professional store.\n\n` +
-      `The pinnacle of our DNA color science. A complete bundle for agencies and production houses looking for a consistent, high-end visual signature across all projects.\n\n` +
+    title: (artist: string, type: string) => `${artist} DNA Collection - ${type} Exclusive Professional Bundle`,
+    description: (hash: string, artist: string, type: string) => `✨ Exclusive ${artist}-driven presets for your professional store.\n\n` +
+      `The pinnacle of our DNA color science, mapping ${artist}'s ${type}. A complete bundle for agencies looking for a consistent, high-end visual signature.\n\n` +
       `💎 EXCLUSIVE FEATURES :\n` +
       `• Full multi-platform compatibility\n` +
       `• White-label license availability\n` +
       `• Advanced 64-bit color matrix\n` +
       `• Hash: ${hash}\n\n` +
       `📦 EXCLUSIVE BUNDLE :\n` +
-      `• All formats included (.CUBE, .3DL, .XMP, .LOOK)\n` +
+      `• All formats included (.CUBE, .XMP, .LOOK)\n` +
       `• Premium video demo & tutorials\n` +
       `• Dedicated success manager`,
     price: "49€",
-    metadata: "shopify, exclusive, pro, dna, bundle, agency, production, signature"
+    metadata: (artist: string, type: string) => `shopify, ${artist.toLowerCase()}, ${type.toLowerCase()}, pro, dna, agency`
   }
 };

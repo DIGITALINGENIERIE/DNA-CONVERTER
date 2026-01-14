@@ -64,6 +64,8 @@ export class ConverterService {
 
       // Step 3: PIF Generation
       await storage.updateJob(jobId, { progress: 50, currentStep: "Generating PIF" });
+      await log(`IDENTIFIED ARTIST: ${parsed.artist_info.name}`);
+      await log(`DNA TYPE: ${parsed.artist_info.dna_type}`);
       await log("GENERATING PRESET INTERMEDIATE FORMAT (PIF)...");
       const pif = generatePIF(parsed);
       await new Promise(r => setTimeout(r, 1000));
@@ -81,23 +83,25 @@ export class ConverterService {
       await log("PACKAGING ASSETS WITH MARKETING DATA...");
       
       const zip = new JSZip();
+      const prefix = `${parsed.artist_info.name}_${parsed.artist_info.dna_type}`.replace(/\s+/g, '_');
       
       // Industrial standard formats
-      zip.file("LUTs/Standard/tactical_look.cube", lut);
-      zip.file("LUTs/Resolve/tactical_look.3dl", lut); // Simplified for mock
+      zip.file(`LUTs/Standard/${prefix}_tactical.cube`, lut);
+      zip.file(`LUTs/Resolve/${prefix}_tactical.3dl`, lut);
       
       // Presets
-      zip.file("Presets/Lightroom/tactical_preset.xmp", JSON.stringify(pif, null, 2));
-      zip.file("Presets/Krita/bundle.kpp", bundle);
+      zip.file(`Presets/Lightroom/${prefix}_preset.xmp`, JSON.stringify(pif, null, 2));
+      zip.file(`Presets/Krita/${prefix}_bundle.kpp`, bundle);
 
       // Metadata & Marketing
-      const readme = `# ${pif.metadata.preset_id}\n\n` +
-        `✨ Transformez vos vidéos/photos avec une précision militaire !\n\n` +
+      const readme = `# ${parsed.artist_info.name} - ${parsed.artist_info.type_label}\n\n` +
+        `✨ Transformez vos vidéos/photos avec le style de ${parsed.artist_info.name} !\n\n` +
+        `Ce pack est généré à partir de l'ADN de type "${parsed.artist_info.dna_type}".\n\n` +
         `🎬 BÉNÉFICES :\n` +
-        `• Ambiance cinématographique basée sur des données ADN\n` +
+        `• Ambiance cinématographique inspirée par ${parsed.artist_info.name}\n` +
         `• Gain de temps considérable : un look pro en un clic\n\n` +
         `📦 CONTENU DU PACK :\n` +
-        `• LUT au format .cube (compatible tous logiciels)\n` +
+        `• LUT au format .cube\n` +
         `• Preset Lightroom (.xmp)\n` +
         `• Intégrité garantie : ${pif.metadata.integrity_hash}\n\n` +
         `⚠️ COMPATIBILITÉ : DaVinci Resolve, Premiere Pro, Final Cut Pro, Photoshop, Lightroom.`;
@@ -110,10 +114,10 @@ export class ConverterService {
       if (pubFolder) {
         Object.entries(publicationTemplates).forEach(([platform, template]) => {
           const content = `PLATFORM: ${platform.toUpperCase()}\n` +
-            `TITLE: ${template.title(pif.metadata.preset_id)}\n` +
+            `TITLE: ${template.title(parsed.artist_info.name, parsed.artist_info.dna_type)}\n` +
             `PRICE: ${template.price}\n` +
-            `METADATA: ${template.metadata}\n\n` +
-            `DESCRIPTION:\n${template.description(pif.metadata.integrity_hash)}`;
+            `METADATA: ${template.metadata(parsed.artist_info.name, parsed.artist_info.dna_type)}\n\n` +
+            `DESCRIPTION:\n${template.description(pif.metadata.integrity_hash, parsed.artist_info.name, parsed.artist_info.dna_type)}`;
           pubFolder.file(`${platform}_listing.txt`, content);
         });
       }
