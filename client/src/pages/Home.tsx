@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Download, PlayCircle, ShieldAlert, Cpu } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Download, PlayCircle, ShieldAlert, Cpu, Activity } from 'lucide-react';
 import { FileUploader } from '@/components/FileUploader';
 import { SystemLog } from '@/components/SystemLog';
 import { ProgressMetrics } from '@/components/ProgressMetrics';
@@ -164,7 +164,7 @@ export default function Home() {
               Live_Telemetry
             </div>
             <SystemLog 
-              logs={(job?.logs as string[]) || []} 
+              logs={(job?.logs as unknown as string[]) || []} 
               status={job?.status || "idle"} 
             />
             {/* Scanline overlay for the terminal */}
