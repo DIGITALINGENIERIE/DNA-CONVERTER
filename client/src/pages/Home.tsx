@@ -38,6 +38,30 @@ export default function Home() {
       <div className="fixed inset-0 pointer-events-none bg-[radial-gradient(circle_at_center,rgba(0,255,65,0.03)_0%,rgba(0,0,0,0.9)_100%)] z-0" />
       <div className="fixed inset-0 pointer-events-none border-[20px] border-black/20 z-10" />
 
+      {/* Marketplace Suggestion - Only show when complete */}
+      <AnimatePresence>
+        {isComplete && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="relative z-30 bg-[#00ff41]/5 border border-[#00ff41]/20 p-4 mb-2 backdrop-blur-md flex flex-col md:flex-row items-center justify-between gap-4"
+          >
+            <div className="flex items-center gap-3">
+              <div className="bg-[#00ff41] text-black p-2"><Activity className="w-5 h-5" /></div>
+              <div>
+                <h4 className="text-[#00ff41] font-bold text-xs tracking-widest uppercase">Monetization Ready</h4>
+                <p className="text-[9px] text-[#00ff41]/60 font-mono">Vendez ce pack sur Envato, Creative Market ou Etsy pour maximiser vos profits.</p>
+              </div>
+            </div>
+            <div className="flex gap-2">
+              {['Envato', 'Creative Market', 'Etsy'].map(m => (
+                <span key={m} className="text-[8px] border border-[#00ff41]/30 px-2 py-1 text-[#00ff41]/40 uppercase font-mono">{m}</span>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Header */}
       <header className="relative z-20 border-b border-[#00ff41]/30 pb-6 mb-4 flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
         <div className="space-y-1">

@@ -1,0 +1,158 @@
+# Guide complet pour vendre LUTs et presets
+
+## 🔝 Top 10 sites pour vendre LUTs et presets
+
+### 1. **Envato Market (VideoHive)**
+- **Avantages** : Énorme audience, système de commission clair
+- **Commission** : 50-70% selon votre niveau d'auteur
+
+### 2. **Creative Market**
+- **Avantages** : Communauté créative, présentation élégante
+- **Commission** : 70% pour les vendeurs
+
+### 3. **Adobe Marketplace**
+- **Avantages** : Intégration directe avec Premiere Pro, Lightroom, etc.
+- **Commission** : 60-70%
+
+### 4. **Etsy**
+- **Avantages** : Parfait pour les créateurs indépendants, frais bas
+- **Commission** : 6,5% + frais de transaction
+
+### 5. **Gumroad**
+- **Avantages** : Simplicité, contrôle total, paiements directs
+- **Commission** : 10% + frais de transaction
+
+### 6. **Sellfy**
+- **Avantages** : Boutique personnalisable, marketing intégré
+- **Commission** : Abonnement mensuel + frais de transaction
+
+### 7. **CineD (pour LUTs cinéma)**
+- **Avantages** : Audience professionnelle spécialisée
+- **Commission** : Variable
+
+### 8. **Filtergrade**
+- **Avantages** : Marketplace spécialisée dans les presets
+- **Commission** : 60-70%
+
+### 9. **Own3d (pour streamers)**
+- **Avantages** : Ciblé streaming/gaming
+- **Commission** : 50-70%
+
+### 10. **Votre propre site (via Shopify, WooCommerce)**
+- **Avantages** : 100% des profits, contrôle total
+- **Inconvénients** : Marketing à faire soi-même
+
+## 📁 Formats de publication recommandés
+
+### Pour les LUTs (Look-Up Tables) :
+- **.cube** (standard industriel, compatible avec la plupart des logiciels)
+- **.3dl** (DaVinci Resolve, Autodesk)
+- **.look** (Adobe SpeedGrade)
+- **.lut** (format générique)
+- **Inclure toujours** : Version .cube + version logiciel spécifique si nécessaire
+
+### Pour les presets :
+- **Lightroom** : .lrtemplate (ancien) + .xmp (nouveau)
+- **Photoshop** : .psd + .xmp
+- **Premiere Pro** : .prfpset
+- **Capture One** : .costylepack
+- **VSCO** : .vsco (application mobile)
+- **FilmConvert** : .fcpro
+
+### Package standard à fournir :
+1. Fichiers principaux dans tous les formats pertinents
+2. Fichier README avec instructions
+3. Capture d'écran/thumbnail
+4. Fichier vidéo/série d'images démo
+5. LICENCE d'utilisation (crucial !)
+
+## 🎯 Structure de présentation marketing type
+
+### **Titre produit :**
+```
+[CINEMATIC / PROFESSIONAL / VINTAGE] Pack Name - [Nombre] LUTs/Presets pour [Logiciel/Usage]
+```
+Exemple : *"CINEMATIC VIBES Pro Pack - 25 LUTs Premium pour DaVinci Resolve & Premiere Pro"*
+
+### **Description type :**
+```
+✨ [ACCROCHE] Transformez vos vidéos/photos en œuvres d'art professionnelles !
+
+[PACK COMPLET] Ce pack exclusif contient [nombre] LUTs/presets méticuleusement conçus pour [cible spécifique : cinéastes, photographes de mariage, influenceurs, etc.].
+
+🎬 [BÉNÉFICES]
+• Donnez une ambiance cinématographique hollywoodienne à vos projets
+• Gain de temps considérable : appliquez un look pro en un clic
+• Compatibilité totale : fonctionne parfaitement avec [logiciels compatibles]
+• Résultats cohérents sur toutes vos prises de vue
+
+📦 [CE QUE VOUS RECEVEZ]
+• [Nombre] LUTs au format .cube (compatible avec tous les logiciels)
+• [Nombre] presets Lightroom (.xmp + .lrtemplate)
+• Guide d'installation détaillé (PDF + vidéo)
+• Licence commerciale pour vos projets clients
+• Support technique prioritaire
+
+🎥 [IDÉAL POUR]
+• Cinéastes indépendants
+• Vidéastes de mariage
+• Créateurs de contenu YouTube
+• Photographes professionnels
+• Agences de production
+
+⚠️ [COMPATIBILITÉ]
+DaVinci Resolve 16+, Premiere Pro CC 2019+, Final Cut Pro X, Photoshop, Lightroom Classic, etc.
+```
+
+### **Prix type :**
+- Pack basique (10-15 LUTs/presets) : 19-29€
+- Pack professionnel (25-50) : 39-69€
+- Mega pack (100+) : 89-149€
+- Bundle (plusieurs packs) : 129-299€
+
+**Conseil** : Proposez une version "Essentielle" gratuite pour générer des leads.
+
+### **Métadonnées types (pour référencement) :**
+```html
+<!-- Meta Title (60 caractères max) -->
+<title>[Nom Pack] - LUTs/Presets [Style] pour [Logiciel] | VotreMarque</title>
+
+<!-- Meta Description (160 caractères max) -->
+<meta name="description" content="Pack [style] de [nombre] LUTs/presets pour [logiciel]. Transformez vos [vidéos/photos] avec des looks [adjectifs]. Compatible [logiciels]. Téléchargement instantané.">
+
+<!-- Keywords -->
+<meta name="keywords" content="LUTs, presets, [logiciel], [style], cinématique, color grading, lightroom, premiere pro, davinci resolve, pack, téléchargement">
+
+<!-- Open Graph (pour réseaux sociaux) -->
+<meta property="og:title" content="[Nom Pack] - [Nombre] LUTs [Style]">
+<meta property="og:description" content="Transformez vos projets avec ce pack premium">
+<meta property="og:image" content="URL_image_aperçu">
+<meta property="og:type" content="product">
+```
+
+## 📊 Structure de dossier recommandée
+```
+/Nom_du_Pack/
+│
+├── /LUTs/
+│   ├── /Cube/
+│   ├── /DaVinci/
+│   └── /Premiere/
+│
+├── /Presets/
+│   ├── /Lightroom/
+│   └── /CaptureOne/
+│
+├── /Demo/
+│   ├── Before-After.jpg
+│   └── Video_Demo.mp4
+│
+├── Documentation.pdf
+├── License.pdf
+└── README.txt
+```
+
+## 💡 Conseil final
+**Créez une vidéo Before/After** démontrant l'effet de vos LUTs - c'est l'outil de vente le plus efficace ! Proposez toujours une **garantie satisfait ou remboursé** (7-30 jours) pour augmenter la confiance.
+
+Bonnes ventes ! 🚀
